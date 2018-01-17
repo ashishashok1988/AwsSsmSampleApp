@@ -20,8 +20,8 @@ public class AwsKmsService {
     @Autowired
     private AWSKMSClient kmsClient;
 
-    @Value("${cloud.aws.kms.dishIt.master.key.id}")
-    private String awsKmsDishITCMKId;
+    @Value("${cloud.aws.kms.org.master.key.id}")
+    private String awsKmsOrgCMKId;
 
     public void listKeys() {
         System.out.println("List of KMS Master Keys: " + kmsClient.listKeys());
@@ -29,7 +29,7 @@ public class AwsKmsService {
 
     public String encrypt(String stringToEncrypt) {
         EncryptRequest encryptRequest = new EncryptRequest();
-        encryptRequest.setKeyId(awsKmsDishITCMKId);
+        encryptRequest.setKeyId(awsKmsOrgCMKId);
         encryptRequest.setPlaintext(ByteBuffer.wrap(stringToEncrypt.getBytes()));
         EncryptResult encryptResult = kmsClient.encrypt(encryptRequest);
         ByteBuffer byteBuffer = encryptResult.getCiphertextBlob();

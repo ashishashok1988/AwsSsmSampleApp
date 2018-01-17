@@ -21,14 +21,14 @@ public class AwsSsmService {
     @Autowired
     private AWSSimpleSystemsManagementClient ssmClient;
 
-    @Value("${cloud.aws.kms.dishIt.master.key.id}")
-    private String awsKmsDishITCMKId;
+    @Value("${cloud.aws.kms.org.master.key.id}")
+    private String awsKmsOrgCMKId;
 
-    private static String API_KEY = "DISH_IT_API_KEY";
+    private static String API_KEY = "ORG_API_KEY";
 
     public String putParameterStore(String dishItApiKey) {
         PutParameterRequest putParameterRequest = new PutParameterRequest();
-        putParameterRequest.setKeyId(awsKmsDishITCMKId);
+        putParameterRequest.setKeyId(awsKmsOrgCMKId);
         putParameterRequest.setOverwrite(true);
         putParameterRequest.setValue(dishItApiKey);
         putParameterRequest.setType(ParameterType.SecureString);
